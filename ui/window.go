@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"log"
@@ -43,8 +44,8 @@ func (pw *Visualizer) Update(t screen.Texture) {
 
 func (pw *Visualizer) run(s screen.Screen) {
 	w, err := s.NewWindow(&screen.NewWindowOptions{
-		Title: "Lab3",
-		Width: 800,
+		Title:  "Lab3",
+		Width:  800,
 		Height: 800,
 	})
 	if err != nil {
@@ -117,6 +118,11 @@ func (pw *Visualizer) handleEvent(e any, t screen.Texture) {
 
 	case mouse.Event:
 		if t == nil {
+			if e.Button == 3 && e.Direction == 1 {
+				x := e.X
+				y := e.Y
+				fmt.Println(x,y)
+			}
 			// TODO: Реалізувати реакцію на натискання кнопки миші.
 		}
 
