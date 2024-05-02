@@ -1,7 +1,6 @@
 package ui
 
 import (
-	"fmt"
 	"image"
 	"image/color"
 	"log"
@@ -119,13 +118,13 @@ func (pw *Visualizer) handleEvent(e any, t screen.Texture) {
 	case mouse.Event:
 		if t == nil {
 			if e.Button == 3 && e.Direction == 1 {
-				x := e.X
-				y := e.Y
-				x1 := int(x)
-				y1 := int(y)
-				x2 := x1 + 400
-				y2 := y1 + 400
-				fmt.Println(x1, y1, x2, y2)
+				//x := e.X
+				//y := e.Y
+				//x1 := int(x)
+				//y1 := int(y)
+				//x2 := x1 + 400
+				//y2 := y1 + 400
+				//fmt.Println(x1, y1, x2, y2)
 			}
 			// TODO: Реалізуваdти реакцію на натискання кнопки миші.
 		}
@@ -143,16 +142,24 @@ func (pw *Visualizer) handleEvent(e any, t screen.Texture) {
 }
 
 func (pw *Visualizer) drawDefaultUI() {
+
 	pw.w.Fill(pw.sz.Bounds(), color.White, draw.Src) // Фон.
 
-	x1 := 0
-	y1 := 0
+	x1 := 200
+	y1 := 250
 	x2 := x1 + 400
-	y2 := y1 + 400
-	fmt.Println(x1, y1, x2, y2)
-	i := image.Rect(x1, y1, x2, y2)
+	y2 := y1 + 200
 
-	pw.w.Fill(i.Bounds(), color.Black, draw.Src)
+	i := image.Rect(x1, y1, x2, y2)
+	blue := color.RGBA{0, 0, 255, 0}
+	pw.w.Fill(i.Bounds(), blue, draw.Src)
+
+	x1 = 300
+	y1 = 150
+	x2 = x1 + 200
+	y2 = y1 + 400
+	i = image.Rect(x1, y1, x2, y2)
+	pw.w.Fill(i.Bounds(), blue, draw.Src)
 
 	// TODO: Змінити колір фону та додати відображення фігури у вашому варіанті.
 
