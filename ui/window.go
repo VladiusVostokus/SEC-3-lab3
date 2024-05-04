@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"log"
@@ -28,6 +29,11 @@ type Visualizer struct {
 	sz  size.Event
 	pos image.Rectangle
 }
+
+const (
+	defaultX = 200
+	defaultY = 300
+)
 
 func (pw *Visualizer) Main() {
 	pw.tx = make(chan screen.Texture)
@@ -118,15 +124,15 @@ func (pw *Visualizer) handleEvent(e any, t screen.Texture) {
 	case mouse.Event:
 		if t == nil {
 			if e.Button == 3 && e.Direction == 1 {
-				//x := e.X
-				//y := e.Y
-				//x1 := int(x)
-				//y1 := int(y)
+				x := e.X
+				y := e.Y
+				x1 := int(x)
+				y1 := int(y)
 				//x2 := x1 + 400
 				//y2 := y1 + 400
-				//fmt.Println(x1, y1, x2, y2)
+				fmt.Println(x1, y1)
+				//pw.w.Send(paint.Event{})
 			}
-			// TODO: Реалізуваdти реакцію на натискання кнопки миші.
 		}
 
 	case paint.Event:
@@ -141,12 +147,15 @@ func (pw *Visualizer) handleEvent(e any, t screen.Texture) {
 	}
 }
 
+func drawCross(x, y int) {
+}
+
 func (pw *Visualizer) drawDefaultUI() {
 
 	pw.w.Fill(pw.sz.Bounds(), color.White, draw.Src) // Фон.
 
-	x1 := 200
-	y1 := 250
+	x1 := defaultX
+	y1 := defaultY
 	x2 := x1 + 400
 	y2 := y1 + 200
 
@@ -155,7 +164,7 @@ func (pw *Visualizer) drawDefaultUI() {
 	pw.w.Fill(i.Bounds(), blue, draw.Src)
 
 	x1 = 300
-	y1 = 150
+	y1 = 200
 	x2 = x1 + 200
 	y2 = y1 + 400
 	i = image.Rect(x1, y1, x2, y2)
