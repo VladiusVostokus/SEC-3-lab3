@@ -120,8 +120,9 @@ func (pw *Visualizer) handleEvent(e any, t screen.Texture) {
 	case mouse.Event:
 		if t == nil {
 			if e.Button == 3 && e.Direction == 1 {
+				leftUpPos := 100
 				pw.pos.X = int(e.X)
-				pw.pos.Y = int(e.Y)
+				pw.pos.Y = int(e.Y) + leftUpPos
 				pw.w.Send(paint.Event{})
 			}
 		}
