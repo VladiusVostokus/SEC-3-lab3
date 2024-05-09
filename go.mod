@@ -1,4 +1,4 @@
-module github.com/roman-mazur/architecture-lab-3
+module github.com/VladiusVostokus/SEC-3-lab3
 
 go 1.22
 
