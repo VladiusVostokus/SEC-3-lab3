@@ -35,7 +35,12 @@ func (p *Parser) Parse(in io.Reader) ([]painter.Operation, error) {
 			fmt.Println("move figure to")
 		case "bgrect":
 			fmt.Println("draw background with size")
+		case "reset":
+			fmt.Println("reset texture state")
+		default:
+			fmt.Println("Wrong command")
 		}
+
 		//op := parse(commandLine) // parse the line to get Operation
 		//res = append(res, op)
 	}
