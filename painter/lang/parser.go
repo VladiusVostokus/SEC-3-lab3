@@ -74,3 +74,7 @@ func (p *Parser) Parse(in io.Reader) ([]painter.Operation, error) {
 
 	return res, nil
 }
+
+func (p *Parser) parse(command []string) error {
+	return nil
+}
