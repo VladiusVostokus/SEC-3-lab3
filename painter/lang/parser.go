@@ -81,7 +81,10 @@ func (p *Parser) parse(commands []string) (painter.Operation, error) {
 		fmt.Println("draw background with size", commands[1], commands[2], commands[3], commands[4])
 
 	case "reset":
-		fmt.Println("reset texture state")
+		if wordsLen != 1 {
+			return nil, fmt.Errorf("too many parameters for green command")
+		}
+		op = painter.OperationFunc(painter.Reset)
 
 	default:
 		return nil, fmt.Errorf("wrond command")

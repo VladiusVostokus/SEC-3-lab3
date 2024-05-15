@@ -46,3 +46,7 @@ func WhiteFill(t screen.Texture) {
 func GreenFill(t screen.Texture) {
 	t.Fill(t.Bounds(), color.RGBA{G: 0xff, A: 0xff}, screen.Src)
 }
+
+func Reset(t screen.Texture) {
+	t.Fill(t.Bounds(), color.Black, screen.Src)
+}
