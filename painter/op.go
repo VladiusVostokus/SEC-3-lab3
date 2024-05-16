@@ -50,3 +50,23 @@ func GreenFill(t screen.Texture) {
 func Reset(t screen.Texture) {
 	t.Fill(t.Bounds(), color.Black, screen.Src)
 }
+
+/*
+func DrawCross(t screen.Texture) {
+	blue := color.RGBA{0, 0, 255, 0}
+	x1 := 200
+	y1 := 200
+	x2 := x1 + 400
+	y2 := y1 + 200
+
+	i := image.Rect(x1, y1, x2, y2)
+	t.Fill(i.Bounds(), blue, screen.Src)
+
+	x1 = x1 + 100
+	y1 = y1 - 100
+	x2 = x1 + 200
+	y2 = y1 + 400
+	i = image.Rect(x1, y1, x2, y2)
+	t.Fill(i.Bounds(), blue, screen.Src)
+}
+*/

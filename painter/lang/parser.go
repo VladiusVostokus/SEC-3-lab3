@@ -59,13 +59,14 @@ func (p *Parser) parse(commands []string) (painter.Operation, error) {
 		if wordsLen != 1 {
 			return nil, fmt.Errorf("too many parameters for updare command")
 		}
-		fmt.Println("update texture")
+		op = painter.UpdateOp
 
 	case "figure":
 		if wordsLen != 3 {
 			return nil, fmt.Errorf("must be 2 parametrs for this command")
 		}
-		fmt.Println("new figure with coords", commands[1], commands[2])
+		//fmt.Println("new figure with coords", commands[1], commands[2])
+		//op = painter.OperationFunc(painter.DrawCross)
 
 	case "move":
 		if wordsLen != 3 {
