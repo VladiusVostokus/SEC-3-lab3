@@ -1,15 +1,27 @@
 package painter
 
 import (
-	"image/color"
-
 	"golang.org/x/exp/shiny/screen"
+	"image"
+	"image/color"
 )
 
 // Operation змінює вхідну текстуру.
 type Operation interface {
 	// Do виконує зміну операції, повертаючи true, якщо текстура вважається готовою для відображення.
 	Do(t screen.Texture) (ready bool)
+}
+
+var (
+	x_1 int
+	y_1 int
+	x2  int
+	y2  int
+)
+
+func SetMoveCoords(x, y int) {
+	x_1 = x
+	y_1 = y
 }
 
 // OperationList групує список операції в одну.
@@ -51,22 +63,13 @@ func Reset(t screen.Texture) {
 	t.Fill(t.Bounds(), color.Black, screen.Src)
 }
 
-/*
 func DrawCross(t screen.Texture) {
 	blue := color.RGBA{0, 0, 255, 0}
-	x1 := 200
-	y1 := 200
+	x1 := x_1 - 200
+	y1 := y_1 - 100
 	x2 := x1 + 400
 	y2 := y1 + 200
 
 	i := image.Rect(x1, y1, x2, y2)
 	t.Fill(i.Bounds(), blue, screen.Src)
-
-	x1 = x1 + 100
-	y1 = y1 - 100
-	x2 = x1 + 200
-	y2 = y1 + 400
-	i = image.Rect(x1, y1, x2, y2)
-	t.Fill(i.Bounds(), blue, screen.Src)
 }
-*/
