@@ -69,7 +69,13 @@ func DrawCross(t screen.Texture) {
 	y1 := y_1 - 100
 	x2 := x1 + 400
 	y2 := y1 + 200
-
 	i := image.Rect(x1, y1, x2, y2)
+	t.Fill(i.Bounds(), blue, screen.Src)
+
+	x1 = x1 + 100
+	y1 = y1 - 100
+	x2 = x1 + 200
+	y2 = y1 + 400
+	i = image.Rect(x1, y1, x2, y2)
 	t.Fill(i.Bounds(), blue, screen.Src)
 }
