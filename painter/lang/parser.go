@@ -82,8 +82,12 @@ func (p *Parser) parse(commands []string) (painter.Operation, error) {
 		if wordsLen != 5 {
 			return nil, fmt.Errorf("must be 4 parametrs for this command")
 		}
-		fmt.Println("draw background with size", commands[1], commands[2], commands[3], commands[4])
-
+		x1, _ := strconv.Atoi(commands[1])
+		y1, _ := strconv.Atoi(commands[2])
+		x2, _ := strconv.Atoi(commands[3])
+		y2, _ := strconv.Atoi(commands[4])
+		bgr := painter.BackGroundRect{x1, y1, x2, y2}
+		op = &bgr
 	case "reset":
 		if wordsLen != 1 {
 			return nil, fmt.Errorf("too many parameters for green command")

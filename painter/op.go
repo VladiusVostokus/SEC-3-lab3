@@ -2,6 +2,7 @@ package painter
 
 import (
 	"golang.org/x/exp/shiny/screen"
+	"golang.org/x/image/draw"
 	"image"
 	"image/color"
 )
@@ -22,6 +23,19 @@ var (
 func SetMoveCoords(x, y int) {
 	x_1 = x
 	y_1 = y
+}
+
+type BackGroundRect struct {
+	X1 int
+	Y1 int
+	X2 int
+	Y2 int
+}
+
+func (bgr *BackGroundRect) Do(t screen.Texture) (ready bool) {
+	i := image.Rect(bgr.X1, bgr.Y1, bgr.X2, bgr.Y2)
+	t.Fill(i.Bounds(), color.Black, screen.Src)
+	return false
 }
 
 // OperationList групує список операції в одну.
@@ -70,12 +84,12 @@ func DrawCross(t screen.Texture) {
 	x2 := x1 + 400
 	y2 := y1 + 200
 	i := image.Rect(x1, y1, x2, y2)
-	t.Fill(i.Bounds(), blue, screen.Src)
+	t.Fill(i.Bounds(), blue, draw.Src)
 
 	x1 = x1 + 100
 	y1 = y1 - 100
 	x2 = x1 + 200
 	y2 = y1 + 400
 	i = image.Rect(x1, y1, x2, y2)
-	t.Fill(i.Bounds(), blue, screen.Src)
+	t.Fill(i.Bounds(), blue, draw.Src)
 }
