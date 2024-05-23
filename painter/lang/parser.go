@@ -68,8 +68,8 @@ func (p *Parser) parse(commands []string) (painter.Operation, error) {
 		//fmt.Println("new figure with coords", commands[1], commands[2])
 		x, _ := strconv.Atoi(commands[1])
 		y, _ := strconv.Atoi(commands[2])
-		painter.SetMoveCoords(x, y)
-		op = painter.OperationFunc(painter.DrawCross)
+		cross := painter.Cross{X: x, Y: y}
+		op = &cross
 
 	case "move":
 		if wordsLen != 3 {

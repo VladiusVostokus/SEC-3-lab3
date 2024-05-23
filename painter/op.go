@@ -13,18 +13,6 @@ type Operation interface {
 	Do(t screen.Texture) (ready bool)
 }
 
-var (
-	x_1 int
-	y_1 int
-	x2  int
-	y2  int
-)
-
-func SetMoveCoords(x, y int) {
-	x_1 = x
-	y_1 = y
-}
-
 type BackGroundRect struct {
 	X1 int
 	Y1 int
@@ -77,10 +65,15 @@ func Reset(t screen.Texture) {
 	t.Fill(t.Bounds(), color.Black, screen.Src)
 }
 
-func DrawCross(t screen.Texture) {
+type Cross struct {
+	X int
+	Y int
+}
+
+func (c *Cross) Do(t screen.Texture) (ready bool) {
 	blue := color.RGBA{0, 0, 255, 0}
-	x1 := x_1 - 200
-	y1 := y_1 - 100
+	x1 := c.X - 200
+	y1 := c.Y - 100
 	x2 := x1 + 400
 	y2 := y1 + 200
 	i := image.Rect(x1, y1, x2, y2)
@@ -92,4 +85,5 @@ func DrawCross(t screen.Texture) {
 	y2 = y1 + 400
 	i = image.Rect(x1, y1, x2, y2)
 	t.Fill(i.Bounds(), blue, draw.Src)
+	return false
 }
