@@ -1,15 +1,29 @@
 package painter
 
 import (
-	"image/color"
-
 	"golang.org/x/exp/shiny/screen"
+	"golang.org/x/image/draw"
+	"image"
+	"image/color"
 )
 
 // Operation змінює вхідну текстуру.
 type Operation interface {
 	// Do виконує зміну операції, повертаючи true, якщо текстура вважається готовою для відображення.
 	Do(t screen.Texture) (ready bool)
+}
+
+type BackGroundRect struct {
+	X1 int
+	Y1 int
+	X2 int
+	Y2 int
+}
+
+func (bgr *BackGroundRect) Do(t screen.Texture) bool {
+	i := image.Rect(bgr.X1, bgr.Y1, bgr.X2, bgr.Y2)
+	t.Fill(i.Bounds(), color.Black, draw.Src)
+	return false
 }
 
 // OperationList групує список операції в одну.
@@ -45,4 +59,45 @@ func WhiteFill(t screen.Texture) {
 // GreenFill зафарбовує тестуру у зелений колір. Може бути викоистана як Operation через OperationFunc(GreenFill).
 func GreenFill(t screen.Texture) {
 	t.Fill(t.Bounds(), color.RGBA{G: 0xff, A: 0xff}, screen.Src)
+}
+
+func Reset(t screen.Texture) {
+	t.Fill(t.Bounds(), color.Black, screen.Src)
+}
+
+type Cross struct {
+	X int
+	Y int
+}
+
+func (c *Cross) Do(t screen.Texture) bool {
+	blue := color.RGBA{0, 0, 255, 0}
+	x1 := c.X - 200
+	y1 := c.Y - 100
+	x2 := x1 + 400
+	y2 := y1 + 200
+	i := image.Rect(x1, y1, x2, y2)
+	t.Fill(i.Bounds(), blue, draw.Src)
+
+	x1 = x1 + 100
+	y1 = y1 - 100
+	x2 = x1 + 200
+	y2 = y1 + 400
+	i = image.Rect(x1, y1, x2, y2)
+	t.Fill(i.Bounds(), blue, draw.Src)
+	return false
+}
+
+type Move struct {
+	X          int
+	Y          int
+	AllCrosses []*Cross
+}
+
+func (m *Move) Do(t screen.Texture) bool {
+	for i := range m.AllCrosses {
+		m.AllCrosses[i].X = m.X
+		m.AllCrosses[i].Y = m.Y
+	}
+	return false
 }
