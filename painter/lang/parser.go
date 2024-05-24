@@ -112,7 +112,6 @@ func (p *Parser) parse(commands []string) error {
 	}
 	return nil
 }
-
 func (p *Parser) returnOperations() []painter.Operation {
 	var ops []painter.Operation
 	ops = append(ops, p.bg)
@@ -121,14 +120,14 @@ func (p *Parser) returnOperations() []painter.Operation {
 			ops = append(ops, move)
 		}
 	}
+	if p.bgRects != nil {
+		ops = append(ops, p.bgRects)
+	}
 	p.allMoves = nil
 	if len(p.allCrosses) > 0 {
 		for _, figure := range p.allCrosses {
 			ops = append(ops, figure)
 		}
-	}
-	if p.bgRects != nil {
-		ops = append(ops, p.bgRects)
 	}
 	if p.update != nil {
 		ops = append(ops, p.update)
