@@ -21,6 +21,9 @@ type Parser struct {
 func (p *Parser) Parse(in io.Reader) ([]painter.Operation, error) {
 	var res []painter.Operation
 	p.update = nil
+	p.allMoves = nil
+	p.allCrosses = nil
+	p.bgRects = nil
 	res = append(res, painter.OperationFunc(painter.WhiteFill))
 	res = append(res, painter.UpdateOp)
 
