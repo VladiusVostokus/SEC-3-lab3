@@ -91,13 +91,13 @@ func (c *Cross) Do(t screen.Texture) bool {
 type Move struct {
 	X          int
 	Y          int
-	allCrosses []*Cross
+	AllCrosses []*Cross
 }
 
 func (m *Move) Do(t screen.Texture) bool {
-	for i := range m.allCrosses {
-		m.allCrosses[i].X = m.X
-		m.allCrosses[i].Y = m.Y
+	for i := range m.AllCrosses {
+		m.AllCrosses[i].X = m.X
+		m.AllCrosses[i].Y = m.Y
 	}
 	return false
 }
