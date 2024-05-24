@@ -11,13 +11,14 @@ import (
 
 // Parser уміє прочитати дані з вхідного io.Reader та повернути список операцій представлені вхідним скриптом.
 type Parser struct {
+	allCrosses []*painter.Cross
 }
 
 func (p *Parser) Parse(in io.Reader) ([]painter.Operation, error) {
 	var res []painter.Operation
 
-	res = append(res, painter.OperationFunc(painter.WhiteFill))
-	res = append(res, painter.UpdateOp)
+	//res = append(res, painter.OperationFunc(painter.WhiteFill))
+	//res = append(res, painter.UpdateOp)
 
 	scanner := bufio.NewScanner(in)
 	scanner.Split(bufio.ScanLines)
@@ -65,10 +66,10 @@ func (p *Parser) parse(commands []string) (painter.Operation, error) {
 		if wordsLen != 3 {
 			return nil, fmt.Errorf("must be 2 parametrs for this command")
 		}
-		//fmt.Println("new figure with coords", commands[1], commands[2])
 		x, _ := strconv.Atoi(commands[1])
 		y, _ := strconv.Atoi(commands[2])
 		cross := painter.Cross{X: x, Y: y}
+		p.allCrosses = append(p.allCrosses, &cross)
 		op = &cross
 
 	case "move":
@@ -76,8 +77,10 @@ func (p *Parser) parse(commands []string) (painter.Operation, error) {
 
 			return nil, fmt.Errorf("must be 2 parametrs for this command")
 		}
-		fmt.Println("move figure to", commands[1], commands[2])
-
+		x, _ := strconv.Atoi(commands[1])
+		y, _ := strconv.Atoi(commands[2])
+		m := painter.Move{X: x, Y: y}
+		op = &m
 	case "bgrect":
 		if wordsLen != 5 {
 			return nil, fmt.Errorf("must be 4 parametrs for this command")
@@ -87,6 +90,7 @@ func (p *Parser) parse(commands []string) (painter.Operation, error) {
 		x2, _ := strconv.Atoi(commands[3])
 		y2, _ := strconv.Atoi(commands[4])
 		bgr := painter.BackGroundRect{x1, y1, x2, y2}
+		p.allCrosses = append(p.allCrosses)
 		op = &bgr
 	case "reset":
 		if wordsLen != 1 {

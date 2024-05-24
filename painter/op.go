@@ -20,9 +20,9 @@ type BackGroundRect struct {
 	Y2 int
 }
 
-func (bgr *BackGroundRect) Do(t screen.Texture) (ready bool) {
+func (bgr *BackGroundRect) Do(t screen.Texture) bool {
 	i := image.Rect(bgr.X1, bgr.Y1, bgr.X2, bgr.Y2)
-	t.Fill(i.Bounds(), color.Black, screen.Src)
+	t.Fill(i.Bounds(), color.Black, draw.Src)
 	return false
 }
 
@@ -70,7 +70,7 @@ type Cross struct {
 	Y int
 }
 
-func (c *Cross) Do(t screen.Texture) (ready bool) {
+func (c *Cross) Do(t screen.Texture) bool {
 	blue := color.RGBA{0, 0, 255, 0}
 	x1 := c.X - 200
 	y1 := c.Y - 100
@@ -85,5 +85,19 @@ func (c *Cross) Do(t screen.Texture) (ready bool) {
 	y2 = y1 + 400
 	i = image.Rect(x1, y1, x2, y2)
 	t.Fill(i.Bounds(), blue, draw.Src)
+	return false
+}
+
+type Move struct {
+	X          int
+	Y          int
+	allCrosses []*Cross
+}
+
+func (m *Move) Do(t screen.Texture) bool {
+	for i := range m.allCrosses {
+		m.allCrosses[i].X = m.X
+		m.allCrosses[i].Y = m.Y
+	}
 	return false
 }
