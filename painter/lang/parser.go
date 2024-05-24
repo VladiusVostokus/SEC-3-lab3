@@ -90,7 +90,6 @@ func (p *Parser) parse(commands []string) (painter.Operation, error) {
 		x2, _ := strconv.Atoi(commands[3])
 		y2, _ := strconv.Atoi(commands[4])
 		bgr := painter.BackGroundRect{x1, y1, x2, y2}
-		p.allCrosses = append(p.allCrosses)
 		op = &bgr
 	case "reset":
 		if wordsLen != 1 {
